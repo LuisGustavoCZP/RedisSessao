@@ -1,6 +1,6 @@
 const { getSession } = require("../services/session");
 
-function sessionCheck (req, res)
+function sessionCheck (req, res, next)
 {
     const {token:sessionid} = req.cookies;
     if(sessionid) 
@@ -9,7 +9,7 @@ function sessionCheck (req, res)
         req.session = session;
         //session.userid 
     }
-    else return;
+    next();
 }
 
 module.exports = {sessionCheck};

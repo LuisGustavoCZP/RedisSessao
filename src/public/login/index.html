@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>Login</h1>
+    </header>
+    <main>
+        <section class="login-input">
+            <ul>
+                <li><input id="username" placeholder="Username" /></li>
+                <li><input id="password" placeholder="Password" /></li>
+            </ul>
+            <button onclick="logar">Entrar</button>
+        </section>
+        <ul id="result"></ul>
+    </main>
+    <script>
+        async function logar()
+        {
+            const username = document.getElementById("username")?.value;
+            const password = document.getElementById("password")?.value;
+            if(username && password)
+            {
+                const resp = await fetch("/login", 
+                {
+                    method:"POST",
+                    headers: { 'Content-Type': 'application/json' },
+                    body: {username, password}
+                });
+                console.log(resp);
+            }
+        }
+    </script>
+</body>
+</html>

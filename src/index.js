@@ -5,6 +5,9 @@ const loginController = require("./controllers/login");
 const { sessionCheck } = require("./controllers/sessioncheck");
 const app = express();
 
+const parent = __dirname.replace(/\/(\w*)$/mi, '');
+console.log(parent, __dirname);
+
 app.use(cookieParser());
 app.use(express.json())
 app.use(express.urlencoded({ extended: true}))
@@ -23,7 +26,7 @@ app.get ("/", async (req, res) =>
         );
         res.end('<a href=' + '/logout' + '>Click here to log out</a >')
     }
-    else res.sendFile(__dirname+"/public/login.html");   
+    else res.sendFile(__dirname+"/public/login/index.html");   
 });
 
 app.get ("/static/index.js", async (req, res) =>
