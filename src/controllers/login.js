@@ -1,24 +1,26 @@
 const passCheck = require("../services/checkpass");
-const {selectUser} = require("../clients/postgres/users");
+const { selectUser, createUser } = require("../clients/postgres/users");
 const { responseSucess, responseError } = require("../utils/response");
+const { createSession } = require("../services/session");
 
 async function login (req, res)
 {
     const {username, password} = req.body;
-    const user = await selectUser(login);
-    if(user)
+    console.log("Executar login")
+    let user = await selectUser(username);
+    if(!user)
     {
-        const respPassCheck = await passCheck(user);
-        if(respPassCheck) 
-        {
-            const session = await createSession(user.id);
-            res.cookie("token", session.id);
-            responseSucess(res, null);
-        }
-        else responseError(["user: wrong password"]);
-        return;
+        user = await createUser(username, password);
     }
-    responseError(["user: not found"]);
+    
+    const respPassCheck = await passCheck(user, password);
+    if(respPassCheck) 
+    {
+        const session = await createSession(user.id);
+        res.cookie("token", session.id);
+        responseSucess(res, null);
+    }
+    else responseError(res, ["user: wrong password"]);
 }
 
 module.exports = login;

@@ -17,12 +17,13 @@
                 <li><input id="username" placeholder="Username" /></li>
                 <li><input id="password" placeholder="Password" /></li>
             </ul>
-            <button onclick="logar">Entrar</button>
+            <button onclick="login()">Entrar</button>
+            <!-- <button onclick="register()">Registrar</button> -->
         </section>
         <ul id="result"></ul>
     </main>
     <script>
-        async function logar()
+        async function login()
         {
             const username = document.getElementById("username")?.value;
             const password = document.getElementById("password")?.value;
@@ -32,8 +33,23 @@
                 {
                     method:"POST",
                     headers: { 'Content-Type': 'application/json' },
-                    body: {username, password}
-                });
+                    body: JSON.stringify({username, password})
+                }).then(resp => resp.json());
+                console.log(resp);
+            }
+        }
+        async function register()
+        {
+            const username = document.getElementById("username")?.value;
+            const password = document.getElementById("password")?.value;
+            if(username && password)
+            {
+                const resp = await fetch("/register", 
+                {
+                    method:"POST",
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({username, password})
+                }).then(resp => resp.json());
                 console.log(resp);
             }
         }

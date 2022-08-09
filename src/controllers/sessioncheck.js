@@ -1,13 +1,13 @@
 const { getSession } = require("../services/session");
 
-function sessionCheck (req, res, next)
+async function sessionCheck (req, res, next)
 {
     const {token:sessionid} = req.cookies;
     if(sessionid) 
     {
-        const session = getSession(sessionid);
+        const session = await getSession(sessionid);
         req.session = session;
-        //session.userid 
+        console.log(sessionid, session);
     }
     next();
 }
