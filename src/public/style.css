@@ -64,13 +64,17 @@ header > a:hover {
 }
 
 main {
-    background-color: gainsboro;
-    padding: 10px;
-    box-shadow: 1px 1px 5px black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .login-input {
     background-color: gainsboro;
+    padding: 10px;
+    box-shadow: 1px 1px 5px black;
+    width: fit-content;
 }
 
 .login-input > ul {
@@ -91,4 +95,21 @@ main {
     display: flex;
     flex-grow: 1;
     justify-content: center;
+}
+
+#result {
+
+}
+
+#result > li {
+
+}
+
+.res-type {
+    text-transform:capitalize;
+}
+
+
+.res-msg {
+    color:brown;
 }

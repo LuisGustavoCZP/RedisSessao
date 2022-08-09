@@ -7,7 +7,8 @@ async function createSession (userid)
         id:uuid(),
         userid:userid
     }
-    await redis.hset(session.id, session);
+    const key = `session:${session.id}`;
+    await redis.hset(key, session);
     await redis.expire(session.id, 60*15);
 
     return session;
@@ -15,12 +16,14 @@ async function createSession (userid)
 
 async function destroySession (sessionid)
 {
-    await redis.del(sessionid);
+    const key = `session:${sessionid}`;
+    await redis.del(key);
 }
 
 async function getSession (sessionid)
 {
-    return await redis.hgetall(sessionid);
+    const key = `session:${sessionid}`;
+    return await redis.hgetall(key);
 }
 
 module.exports = {createSession, destroySession, getSession}

@@ -1,9 +1,6 @@
 const bcrypto = require("../utils/bcrypto");
+const { setFail } = require("./failure");
 
-async function passwordFailed (userid)
-{
-
-}
 
 async function check (user, password)
 {
@@ -11,7 +8,7 @@ async function check (user, password)
     {
         return true;
     }
-    await passwordFailed(user.id);
+    await setFail(user.id, "password");
     return false;
 }
 

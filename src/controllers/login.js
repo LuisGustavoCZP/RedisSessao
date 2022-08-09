@@ -2,6 +2,7 @@ const passCheck = require("../services/checkpass");
 const { selectUser, createUser } = require("../clients/postgres/users");
 const { responseSucess, responseError } = require("../utils/response");
 const { createSession } = require("../services/session");
+const { getFail } = require("../services/failure");
 
 async function login (req, res)
 {
@@ -13,6 +14,13 @@ async function login (req, res)
         user = await createUser(username, password);
     }
     
+    const failures = await getFail(user.id, "password");
+    if(failures && failures.tries > 3) 
+    {
+        responseError(res, [`user: Tentativas foram excedidas, aguarde ${failures.expiration/1000} segundos`]);
+        return;
+    }
+
     const respPassCheck = await passCheck(user, password);
     if(respPassCheck) 
     {
@@ -20,7 +28,7 @@ async function login (req, res)
         res.cookie("token", session.id);
         responseSucess(res, null);
     }
-    else responseError(res, ["user: wrong password"]);
+    else responseError(res, ["user: Senha errada"]);
 }
 
 module.exports = login;
