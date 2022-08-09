@@ -7,5 +7,23 @@
     "ioredis": "^5.2.2",
     "pg": "^8.7.3",
     "uuid": "^8.3.2"
-  }
+  },
+  "name": "redissessao",
+  "description": "",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LuisGustavoCZP/RedisSessao.git"
+  },
+  "author": "Luis Gustavo CZP",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LuisGustavoCZP/RedisSessao/issues"
+  },
+  "homepage": "https://github.com/LuisGustavoCZP/RedisSessao#readme"
 }

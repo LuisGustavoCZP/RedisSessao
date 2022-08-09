@@ -1,8 +1,8 @@
 const express = require("express");
 const cookieParser = require('cookie-parser')
-const { port } = require("./src/utils/configs");
-const loginController = require("./src/controllers/login");
-const { sessionCheck } = require("./src/controllers/sessioncheck");
+const { port } = require("./utils/configs");
+const loginController = require("./controllers/login");
+const { sessionCheck } = require("./controllers/sessioncheck");
 const app = express();
 
 app.use(cookieParser());

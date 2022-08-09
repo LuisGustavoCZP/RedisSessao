@@ -1,11 +1,9 @@
 const passCheck = require("../services/checkpass");
-const session = require('express-session');
 const {selectUser} = require("../clients/postgres/users");
 const { responseSucess, responseError } = require("../utils/response");
 
-function login (req, res)
+async function login (req, res)
 {
-    const sess = req.session;
     const {username, password} = req.body;
     const user = await selectUser(login);
     if(user)

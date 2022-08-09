@@ -1,4 +1,4 @@
-const { check } = require("../utils/bcrypto");
+const bcrypto = require("../utils/bcrypto");
 
 async function passwordFailed (userid)
 {
@@ -7,7 +7,7 @@ async function passwordFailed (userid)
 
 async function check (user)
 {
-    if(check(password, user.password))
+    if(bcrypto.check(password, user.password))
     {
         return true;
     }
