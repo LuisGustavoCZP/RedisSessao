@@ -2,6 +2,7 @@ const express = require("express");
 const cookieParser = require('cookie-parser')
 const { port } = require("./utils/configs");
 const loginController = require("./controllers/login");
+const logoutController = require("./controllers/logout");
 const { sessionCheck } = require("./controllers/sessioncheck");
 const app = express();
 
@@ -14,6 +15,17 @@ app.use(express.urlencoded({ extended: true}))
 app.use(sessionCheck);
 
 app.post("/login", loginController);
+app.get("/logout", logoutController);
+
+app.get ("/login", async (req, res) => 
+{
+    const sess = req.session;
+    if(sess)
+    {
+        res.redirect("/");
+    }
+    else res.sendFile(__dirname+"/public/login/index.html");
+});
 
 app.get ("/", async (req, res) =>
 {
@@ -26,7 +38,7 @@ app.get ("/", async (req, res) =>
         );
         res.end('<a href=' + '/logout' + '>Click here to log out</a >')
     }
-    else res.sendFile(__dirname+"/public/login/index.html");   
+    else res.redirect("/login");
 });
 
 app.get ("/static/index.js", async (req, res) =>

@@ -13,9 +13,14 @@ async function createSession (userid)
     return session;
 }
 
+async function destroySession (sessionid)
+{
+    await redis.del(sessionid);
+}
+
 async function getSession (sessionid)
 {
     return await redis.hgetall(sessionid);
 }
 
-module.exports = {createSession, getSession}
+module.exports = {createSession, destroySession, getSession}

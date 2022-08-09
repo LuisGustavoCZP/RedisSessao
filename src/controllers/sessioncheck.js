@@ -7,7 +7,7 @@ async function sessionCheck (req, res, next)
     {
         const session = await getSession(sessionid);
         req.session = session;
-        console.log(sessionid, session);
+        //console.log(sessionid, session);
     }
     next();
 }
