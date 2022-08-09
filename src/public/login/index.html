@@ -14,11 +14,10 @@
     <main>
         <section class="login-input">
             <ul>
-                <li><input id="username" placeholder="Username" /></li>
-                <li><input id="password" placeholder="Password" /></li>
+                <li><input type="text" id="username" placeholder="Username" /></li>
+                <li><input type="password" id="password" placeholder="Password" /></li>
+                <li><button onclick="login()">Entrar</button></li>
             </ul>
-            <button onclick="login()">Entrar</button>
-            <!-- <button onclick="register()">Registrar</button> -->
         </section>
         <ul id="result"></ul>
     </main>
@@ -35,6 +34,7 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({username, password})
                 }).then(resp => resp.json());
+                console.log(resp);
                 if(resp.messages.length == 0) window.location.reload();
             }
         }

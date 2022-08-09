@@ -4,10 +4,8 @@ const { port } = require("./utils/configs");
 const loginController = require("./controllers/login");
 const logoutController = require("./controllers/logout");
 const { sessionCheck } = require("./controllers/sessioncheck");
+const { homePage } = require("./routes/home");
 const app = express();
-
-const parent = __dirname.replace(/\/(\w*)$/mi, '');
-console.log(parent, __dirname);
 
 app.use(cookieParser());
 app.use(express.json())
@@ -27,19 +25,7 @@ app.get ("/login", async (req, res) =>
     else res.sendFile(__dirname+"/public/login/index.html");
 });
 
-app.get ("/", async (req, res) =>
-{
-    const sess = req.session;
-    if(sess)
-    {
-        res.write(`<h1>Welcome ${sess.id} </h1><br>`)
-        res.write(
-            `<h3>This is the Home page</h3>`
-        );
-        res.end('<a href=' + '/logout' + '>Click here to log out</a >')
-    }
-    else res.redirect("/login");
-});
+app.get ("/", homePage);
 
 app.get ("/static/index.js", async (req, res) =>
 {

@@ -1,4 +1,5 @@
 const postgres = require("./postgres");
+const bcrypto = require("../../utils/bcrypto");
 
 async function selectUser (username)
 {
@@ -12,7 +13,8 @@ async function selectUser (username)
 
 async function createUser (username, password)
 {
-    const resp = await postgres.query('INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *', [username, password]);
+    const pass = await bcrypto.generate(password);
+    const resp = await postgres.query('INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *', [username, pass]);
     if(resp.rows.length > 0)
     {
         return resp.rows[0];

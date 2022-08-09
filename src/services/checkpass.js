@@ -7,7 +7,7 @@ async function passwordFailed (userid)
 
 async function check (user, password)
 {
-    if(bcrypto.check(password, user.password))
+    if(await bcrypto.check(password, user.password))
     {
         return true;
     }

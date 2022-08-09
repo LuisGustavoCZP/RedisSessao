@@ -1,4 +1,5 @@
 const { getSession } = require("../services/session");
+const { getUser } = require("../services/user");
 
 async function sessionCheck (req, res, next)
 {
@@ -6,8 +7,11 @@ async function sessionCheck (req, res, next)
     if(sessionid) 
     {
         const session = await getSession(sessionid);
-        req.session = session;
-        //console.log(sessionid, session);
+        if(session.id)
+        {
+            req.session = session;
+            req.user = await getUser(session.userid);
+        }
     }
     next();
 }
