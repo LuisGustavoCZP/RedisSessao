@@ -1,10 +1,10 @@
 const express = require("express");
-const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser');
 const { port } = require("./utils/configs");
-const loginController = require("./controllers/login");
-const logoutController = require("./controllers/logout");
-const { sessionCheck } = require("./controllers/sessioncheck");
-const { homePage } = require("./routes/home");
+
+const { loginController, logoutController, sessionCheck } = require("./controllers");
+const { homePage, loginPage, testPage } = require("./pages");
+
 const app = express();
 
 app.use(cookieParser());
@@ -15,27 +15,11 @@ app.use(sessionCheck);
 app.post("/login", loginController);
 app.get("/logout", logoutController);
 
-app.get ("/login", async (req, res) => 
-{
-    const sess = req.session;
-    if(sess)
-    {
-        res.redirect("/");
-    }
-    else res.sendFile(__dirname+"/public/login/index.html");
-});
-
+app.get ("/login", loginPage);
 app.get ("/", homePage);
-
-app.get ("/static/index.js", async (req, res) =>
-{
-    res.sendFile(__dirname+"/public/index.js");
-});
-
-app.get ("/static/style.css", async (req, res) =>
-{
-    res.sendFile(__dirname+"/public/style.css");
-});
+app.get ("/test1", testPage);
+app.get ("/test2", testPage);
+app.get ("/test3", testPage);
 
 app.listen(port, () => 
 {

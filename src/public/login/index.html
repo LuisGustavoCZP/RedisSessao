@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <header>
@@ -21,34 +20,5 @@
         </section>
         <ul id="result"></ul>
     </main>
-    <script>
-        async function login()
-        {
-            const result = document.getElementById("result");
-            const username = document.getElementById("username")?.value;
-            const password = document.getElementById("password")?.value;
-            if(username && password)
-            {
-                const resp = await fetch("/login", 
-                {
-                    method:"POST",
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({username, password})
-                }).then(resp => resp.json());
-                console.log(resp);
-                if(resp.messages.length == 0) window.location.reload();
-                else 
-                {
-                    console.log(resp.messages);
-                    result.innerHTML = "";
-                    resp.messages.forEach(msg => 
-                    {
-                        const ms = msg.split(":");
-                        result.innerHTML += `<li><span class="res-type">${ms[0]}:</span><span class="res-msg">${ms[1]}</span></li>`;
-                    });
-                }
-            }
-        }
-    </script>
 </body>
 </html>

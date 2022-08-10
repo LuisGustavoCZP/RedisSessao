@@ -5,15 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="stylesheet" href="static/style.css">
 </head>
 <body>
     <header>
-        <h1 id="title">Bem vindo</h1><a href='/logout'>Logout</a>
+        <h1 id="title">Bem vindo</h1>
+        <nav>
+            <a href="/test1">Teste 1</a>
+            <a href="/test2">Teste 2</a>
+            <a href="/test3">Teste 3</a>
+            <a href='/logout'>Logout</a>
+        </nav>
     </header>
     <main>
-        
+        <section class="user-info">
+            <p>LastAction = <span id="last-action"></span></p>
+            <div>
+                <span>Pageviews</span> 
+                <ol id="pageviews"></ol>
+            </div>
+        </section>
     </main>
-    <script defer src="static/index.js"></script>
 </body>
 </html>
